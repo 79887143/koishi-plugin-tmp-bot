@@ -1,3 +1,4 @@
+const dayjs = require('dayjs')
 const truckersMpApi = require('../api/TruckersMpApi')
 const truckyAppApi = require('../api/truckyAppApi')
 const baiduTranslate = require('../util/baiduTranslate')
@@ -30,7 +31,7 @@ module.exports = async (ctx, cfg, tmpId) => {
   // 拼接消息模板 正常4763167 永久5396563 暂时封号5118166
   let message = `<img src="${playerInfo.data.avatar}"/>`
   message += '\n😀玩家名称: ' + playerInfo.data.name
-  message += '\n📑注册日期: ' + playerInfo.data.joinDate.substring(0, 10)
+  message += '\n📑注册日期: ' + dayjs(playerInfo.data.joinDate + 'Z').format('YYYY年MM月DD日')
   message += '\n💼所属分组: ' + (userGroup[playerInfo.data.groupName] || playerInfo.data.groupName) // 🪪💼📂🚹
   if (playerInfo.data.vtc && playerInfo.data.vtc.inVTC) {
     message += '\n🚚所属车队: ' + playerInfo.data.vtc.name
@@ -43,18 +44,16 @@ module.exports = async (ctx, cfg, tmpId) => {
     } else if (!playerInfo.data.bannedUntil) {
       message += '永久'
     } else {
-      // TODO 处理时间格式
-      message += playerInfo.data.bannedUntil
+      message += daiyjs(playerInfo.data.bannedUntil + 'Z').format('YYYY年MM月DD日 HH:mm')
     }
   }
   message += '\n🚫封禁次数: ' + playerInfo.data.bansCount || 0
-  message += '\n🛜在线状态: ' + (playerMapInfo.data.online ? `在线🟢 (${playerMapInfo.data.serverDetails.name})` : '离线⚫')
+  message += '\n📶在线状态: ' + (playerMapInfo.data.online ? `在线🟢 (${playerMapInfo.data.serverDetails.name})` : '离线⚫')
   if (playerMapInfo.data.online) {
     message += '\n🌍线上位置: '
     message += await baiduTranslate(ctx.http, cfg, playerMapInfo.data.location.poi.country)
     message += ' - '
     message += await baiduTranslate(ctx.http, cfg, playerMapInfo.data.location.poi.realName)
   }
-  console.info(playerMapInfo.data)
   return message
 }

@@ -4,7 +4,7 @@ module.exports = {
   /**
    * 查询玩家信息
    */
-  player: async (http, tmpId) => {
+  async player (http, tmpId) {
     let result = null
     try {
       result = await http.get(`${BASE_API}/player/${tmpId}`)
@@ -16,7 +16,30 @@ module.exports = {
 
     // 拼接返回数据
     let data = {
-      error: result.error
+      error: JSON.parse(result.error)
+    }
+    if (!data.error) {
+      data.data = result.response
+    }
+
+    return data
+  },
+  /**
+   * 查询服务器列表
+   */
+  async servers (http) {
+    let result = null
+    try {
+      result = await http.get(`${BASE_API}/servers`)
+    } catch {
+      return {
+        error: true
+      }
+    }
+
+    // 拼接返回数据
+    let data = {
+      error: JSON.parse(result.error)
     }
     if (!data.error) {
       data.data = result.response

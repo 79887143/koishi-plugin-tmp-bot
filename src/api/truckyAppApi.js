@@ -4,7 +4,7 @@ module.exports = {
   /**
    * 查询线上信息
    */
-  online: async (http, tmpId) => {
+  async online (http, tmpId) {
     let result = null
     try {
       result = await http.get(`${BASE_API_V3}/map/online?playerID=${tmpId}`)
