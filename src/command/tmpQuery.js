@@ -1,5 +1,6 @@
 const truckersMpApi = require('../api/TruckersMpApi')
 const truckyAppApi = require('../api/truckyAppApi')
+const baiduTranslate = require('../util/baiduTranslate')
 
 /**
  * 用户组
@@ -47,6 +48,13 @@ module.exports = async (ctx, cfg, tmpId) => {
     }
   }
   message += '\n🚫封禁次数: ' + playerInfo.data.bansCount || 0
-  message += '\n🛜在线状态: ' + (playerMapInfo.data.online ? '在线' : '离线')
+  message += '\n🛜在线状态: ' + (playerMapInfo.data.online ? `在线🟢 (${playerMapInfo.data.serverDetails.name})` : '离线⚫')
+  if (playerMapInfo.data.online) {
+    message += '\n🌍线上位置: '
+    message += await baiduTranslate(ctx.http, cfg, playerMapInfo.data.location.poi.country)
+    message += ' - '
+    message += await baiduTranslate(ctx.http, cfg, playerMapInfo.data.location.poi.realName)
+  }
+  console.info(playerMapInfo.data)
   return message
 }
