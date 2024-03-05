@@ -19,7 +19,8 @@ module.exports = async (ctx, cfg, tmpId) => {
   }
 
   // 拼接消息模板
-  let message = '😀玩家名称: ' + playerInfo.data.name
+  let message = `<img src="${playerInfo.data.avatar}"/>`
+  message += '\n😀玩家名称: ' + playerInfo.data.name
   message += '\n📑注册日期: ' + playerInfo.data.joinDate.substring(0, 10)
   message += '\n💼所属分组: ' + (userGroup[playerInfo.data.groupName] || playerInfo.data.groupName) // 🪪💼📂🚹
   if (playerInfo.data.vtc && playerInfo.data.vtc.inVTC) {
