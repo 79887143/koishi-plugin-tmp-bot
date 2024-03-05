@@ -15,8 +15,10 @@
     "koishi",
     "plugin"
   ],
-  "devDependencies": {},
   "peerDependencies": {
     "koishi": "^4.17.1"
+  },
+  "dependencies": {
+    "js-md5": "^0.8.3"
   }
 }
