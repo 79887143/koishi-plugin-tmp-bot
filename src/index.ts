@@ -1,5 +1,6 @@
 import { Context, Schema } from 'koishi'
 const tmpLocation = require('./command/tmpLocation')
+const tmpQuery = require('./command/tmpQuery')
 
 export const name = 'tmp-bot'
 
@@ -18,4 +19,5 @@ export const Config: Schema<Config> = Schema.object({
 export function apply(ctx: Context, cfg: Config) {
   // 注册指令
   ctx.command('tmplocation').action(async () => await tmpLocation(ctx, cfg))
+  ctx.command('tmpquery <tmpId>').action(async (_, tmpId) => await tmpQuery(ctx, cfg, tmpId))
 }
