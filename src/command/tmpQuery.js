@@ -10,7 +10,8 @@ const baiduTranslate = require('../util/baiduTranslate')
 const userGroup = {
   'Player': '玩家',
   'Retired Legend': '退役',
-  'Game Developer': '游戏开发者'
+  'Game Developer': '游戏开发者',
+  'Retired Team Member': '退休团队成员'
 }
 
 /**

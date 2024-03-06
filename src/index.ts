@@ -3,6 +3,7 @@ const model = require('./database/model')
 const tmpQuery = require('./command/tmpQuery')
 const tmpServer = require('./command/tmpServer')
 const tmpBind = require('./command/tmpBind')
+const tmpTraffic = require('./command/tmpTraffic')
 
 export const name = 'tmp-bot'
 
@@ -25,6 +26,7 @@ export function apply(ctx: Context, cfg: Config) {
   ctx.command('tmpquery <tmpId>').action(async ({ session }, tmpId) => await tmpQuery(ctx, cfg, session, tmpId))
   ctx.command('tmpserver').action(async () => await tmpServer(ctx, cfg))
   ctx.command('tmpbind <tmpId>').action(async ({ session }, tmpId) => await tmpBind(ctx, cfg, session, tmpId))
+  ctx.command('tmptraffic <serverName>').action(async ({ session }, serverName) => await tmpTraffic(ctx, cfg, serverName))
 
   // 等待数据库模块准备完毕后初始化数据库表
   let databaseTime = setInterval(() => {
