@@ -10,20 +10,28 @@ export interface Config {
   baiduTranslateEnable: boolean
   baiduTranslateAppId: string
   baiduTranslateKey: string
+  baiduTranslateCacheEnable: boolean
 }
 
 export const Config: Schema<Config> = Schema.object({
   baiduTranslateEnable: Schema.boolean().default(false).description('启用百度翻译'),
   baiduTranslateAppId: Schema.string().description('百度翻译APP ID'),
-  baiduTranslateKey: Schema.string().description('百度翻译秘钥')
+  baiduTranslateKey: Schema.string().description('百度翻译秘钥'),
+  baiduTranslateCacheEnable: Schema.boolean().default(false).description('启用百度翻译缓存')
 })
 
 export function apply(ctx: Context, cfg: Config) {
-  // 初始化数据库
-  model(ctx)
-
   // 注册指令
   ctx.command('tmpquery <tmpId>').action(async ({ session }, tmpId) => await tmpQuery(ctx, cfg, session, tmpId))
   ctx.command('tmpserver').action(async () => await tmpServer(ctx, cfg))
   ctx.command('tmpbind <tmpId>').action(async ({ session }, tmpId) => await tmpBind(ctx, cfg, session, tmpId))
+
+  // 等待数据库模块准备完毕后初始化数据库表
+  let databaseTime = setInterval(() => {
+    if (ctx.database) {
+      clearInterval(databaseTime)
+      databaseTime = null
+      model(ctx)
+    }
+  }, 100)
 }

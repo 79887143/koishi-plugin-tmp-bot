@@ -65,9 +65,9 @@ module.exports = async (ctx, cfg, session, tmpId) => {
   message += '\n📶在线状态: ' + (playerMapInfo.data.online ? `在线🟢 (${playerMapInfo.data.serverDetails.name})` : '离线⚫')
   if (playerMapInfo.data.online) {
     message += '\n🌍线上位置: '
-    message += await baiduTranslate(ctx.http, cfg, playerMapInfo.data.location.poi.country)
+    message += await baiduTranslate(ctx, cfg, playerMapInfo.data.location.poi.country)
     message += ' - '
-    message += await baiduTranslate(ctx.http, cfg, playerMapInfo.data.location.poi.realName)
+    message += await baiduTranslate(ctx, cfg, playerMapInfo.data.location.poi.realName)
   }
   return message
 }

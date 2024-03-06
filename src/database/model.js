@@ -3,41 +3,67 @@
  */
 const modelArray = {
   tmp_guild_bind: {
-    // 主键
     id: {
       type: 'unsigned',
       length: 10,
-      nullable: false
+      nullable: false,
+      comment: '主键'
     },
-    // 所属平台
     platform: {
       type: 'string',
       length: 50,
-      nullable: false
+      nullable: false,
+      comment: '所属平台'
     },
-    // 群组编号
     guild_id: {
       type: 'string',
       length: 50,
-      nullable: false
+      nullable: false,
+      comment: '群组编号'
     },
-    // 用户编号
     user_id: {
       type: 'string',
       length: 50,
-      nullable: false
+      nullable: false,
+      comment: '用户编号'
     },
-    // 用户昵称
     user_name: {
       type: 'string',
       length: 50,
-      nullable: false
+      nullable: false,
+      comment: '用户昵称'
     },
-    // TMP ID
     tmp_id: {
       type: 'unsigned',
       length: 50,
-      nullable: false
+      nullable: false,
+      comment: 'TMP ID'
+    }
+  },
+  tmp_translate_cache: {
+    id: {
+      type: 'unsigned',
+      length: 10,
+      nullable: false,
+      comment: '主键'
+    },
+    content: {
+      type: 'string',
+      nullable: false,
+      length: 200,
+      comment: '原文文本'
+    },
+    content_md5: {
+      type: 'string',
+      nullable: false,
+      length: 32,
+      comment: '原文文本md5'
+    },
+    translate_content: {
+      type: 'string',
+      nullable: false,
+      length: 200,
+      comment: '翻译文本'
     }
   }
 }
