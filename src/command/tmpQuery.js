@@ -1,4 +1,5 @@
 const dayjs = require('dayjs')
+const guildBind = require('../database/guildBind')
 const truckersMpApi = require('../api/TruckersMpApi')
 const truckyAppApi = require('../api/truckyAppApi')
 const baiduTranslate = require('../util/baiduTranslate')
@@ -15,7 +16,20 @@ const userGroup = {
 /**
  * 查询玩家信息
  */
-module.exports = async (ctx, cfg, tmpId) => {
+module.exports = async (ctx, cfg, session, tmpId) => {
+  if (tmpId && isNaN(tmpId)) {
+    return `请输入正确的玩家编号`
+  }
+
+  // 如果没有传入tmpId，尝试从数据库查询绑定信息
+  if (!tmpId) {
+    let guildBindData = await guildBind.get(ctx.database, session.platform, session.guildId, session.userId)
+    if (!guildBindData) {
+      return `请输入正确的玩家编号`
+    }
+    tmpId = guildBindData.tmp_id
+  }
+
   // 查询玩家信息
   let playerInfo = await truckersMpApi.player(ctx.http, tmpId)
   if (playerInfo.error) {

@@ -1,6 +1,8 @@
 import { Context, Schema } from 'koishi'
+const model = require('./database/model')
 const tmpQuery = require('./command/tmpQuery')
 const tmpServer = require('./command/tmpServer')
+const tmpBind = require('./command/tmpBind')
 
 export const name = 'tmp-bot'
 
@@ -17,7 +19,11 @@ export const Config: Schema<Config> = Schema.object({
 })
 
 export function apply(ctx: Context, cfg: Config) {
+  // 初始化数据库
+  model(ctx)
+
   // 注册指令
-  ctx.command('tmpquery <tmpId>').action(async (_, tmpId) => await tmpQuery(ctx, cfg, tmpId))
+  ctx.command('tmpquery <tmpId>').action(async ({ session }, tmpId) => await tmpQuery(ctx, cfg, session, tmpId))
   ctx.command('tmpserver').action(async () => await tmpServer(ctx, cfg))
+  ctx.command('tmpbind <tmpId>').action(async ({ session }, tmpId) => await tmpBind(ctx, cfg, session, tmpId))
 }
