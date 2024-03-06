@@ -17,7 +17,8 @@ const serverNameAlias = {
 const severityToZh = {
   'Fluid': '🟢畅通',
   'Moderate': '🟠正常',
-  'Congested': '🔴拥堵'
+  'Congested': '🔴缓慢',
+  'Heavy': '🟣拥堵'
 }
 
 /**
@@ -25,7 +26,8 @@ const severityToZh = {
  */
 const typeToZh = {
   'City': '城市',
-  'Road': '公路'
+  'Road': '公路',
+  'Intersection': '十字路口'
 }
 
 /**
