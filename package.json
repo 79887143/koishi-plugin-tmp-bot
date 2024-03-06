@@ -1,7 +1,11 @@
 {
   "name": "koishi-plugin-tmp-bot",
   "description": "欧洲卡车模拟2 TMP查询机器人",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/79887143/koishi-plugin-tmp-bot.git"
+  },
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -13,8 +17,17 @@
   "keywords": [
     "chatbot",
     "koishi",
-    "plugin"
+    "plugin",
+    "truckersmp",
+    "gametool",
+    "ets2",
+    "tmp"
   ],
+  "koishi": {
+    "service": {
+      "required": ["database"]
+    }
+  },
   "peerDependencies": {
     "koishi": "^4.17.1"
   },
