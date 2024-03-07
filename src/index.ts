@@ -24,7 +24,6 @@ export const Config: Schema<Config> = Schema.object({
 
 export function apply(ctx: Context, cfg: Config) {
   // 初始化数据表
-  console.info('数据库: ', ctx.database)
   model(ctx)
 
   // 注册指令
