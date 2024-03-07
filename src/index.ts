@@ -6,6 +6,7 @@ const tmpBind = require('./command/tmpBind')
 const tmpTraffic = require('./command/tmpTraffic')
 
 export const name = 'tmp-bot'
+export const inject = ['database']
 
 export interface Config {
   baiduTranslateEnable: boolean
@@ -22,18 +23,13 @@ export const Config: Schema<Config> = Schema.object({
 })
 
 export function apply(ctx: Context, cfg: Config) {
+  // 初始化数据表
+  console.info('数据库: ', ctx.database)
+  model(ctx)
+
   // 注册指令
   ctx.command('tmpquery <tmpId>').action(async ({ session }, tmpId) => await tmpQuery(ctx, cfg, session, tmpId))
   ctx.command('tmpserver').action(async () => await tmpServer(ctx, cfg))
   ctx.command('tmpbind <tmpId>').action(async ({ session }, tmpId) => await tmpBind(ctx, cfg, session, tmpId))
   ctx.command('tmptraffic <serverName>').action(async ({ session }, serverName) => await tmpTraffic(ctx, cfg, serverName))
-
-  // 等待数据库模块准备完毕后初始化数据库表
-  let databaseTime = setInterval(() => {
-    if (ctx.database) {
-      clearInterval(databaseTime)
-      databaseTime = null
-      model(ctx)
-    }
-  }, 100)
 }
