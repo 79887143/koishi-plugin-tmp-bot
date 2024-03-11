@@ -1,4 +1,4 @@
-import { segment } from 'koishi'
+const { segment } = require('koishi')
 import { resolve } from 'path'
 const guildBind = require('../database/guildBind')
 const truckyAppApi = require('../api/truckyAppApi')
