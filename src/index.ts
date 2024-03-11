@@ -4,9 +4,13 @@ const tmpQuery = require('./command/tmpQuery')
 const tmpServer = require('./command/tmpServer')
 const tmpBind = require('./command/tmpBind')
 const tmpTraffic = require('./command/tmpTraffic')
+const tmpPosition = require('./command/tmpPosition')
 
 export const name = 'tmp-bot'
-export const inject = ['database']
+export const inject = {
+  required: ['database'],
+  optional: ['puppeteer']
+}
 
 export interface Config {
   baiduTranslateEnable: boolean
@@ -31,4 +35,5 @@ export function apply(ctx: Context, cfg: Config) {
   ctx.command('tmpserver').action(async () => await tmpServer(ctx, cfg))
   ctx.command('tmpbind <tmpId>').action(async ({ session }, tmpId) => await tmpBind(ctx, cfg, session, tmpId))
   ctx.command('tmptraffic <serverName>').action(async ({ session }, serverName) => await tmpTraffic(ctx, cfg, serverName))
+  ctx.command('tmpposition <tmpId>').action(async ({ session }, tmpId) => await tmpPosition(ctx, cfg, session, tmpId))
 }
