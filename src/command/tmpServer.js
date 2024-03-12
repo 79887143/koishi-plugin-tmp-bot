@@ -1,14 +1,14 @@
 const truckersMpApi = require('../api/TruckersMpApi')
 
-module.exports = async (ctx, cfg) => {
+module.exports = async (ctx, cfg, game) => {
   // 查询服务器信息
   let serverData = await truckersMpApi.servers(ctx.http)
   if (serverData.error) {
     return '查询服务器失败，请稍后重试'
   }
 
-  // 过滤非欧卡2服务器
-  let etsServerList = serverData.data.filter(server => server.game === 'ETS2')
+  // 过滤服务器
+  let etsServerList = serverData.data.filter(server => server.game === game)
 
   // 构建消息
   let message = ''
