@@ -60,7 +60,6 @@ module.exports = async (ctx, cfg, serverName) => {
     message += await baiduTranslate(ctx, cfg, name) + ` (${typeToZh[type] || type})`
     message += '\n路况: ' + (severityToZh[traffic.newSeverity] || traffic.color)
     message += ' | 人数: ' + traffic.players
-    console.info(traffic)
   }
 
   return message

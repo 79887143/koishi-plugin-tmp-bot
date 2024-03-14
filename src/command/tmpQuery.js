@@ -1,6 +1,6 @@
 const dayjs = require('dayjs')
 const guildBind = require('../database/guildBind')
-const truckersMpApi = require('../api/TruckersMpApi')
+const truckersMpApi = require('../api/truckersMpApi')
 const truckyAppApi = require('../api/truckyAppApi')
 const baiduTranslate = require('../util/baiduTranslate')
 
@@ -43,7 +43,7 @@ module.exports = async (ctx, cfg, session, tmpId) => {
     return '查询玩家信息失败，请重试'
   }
 
-  // 拼接消息模板 正常4763167 永久5396563 暂时封号5118166
+  // 拼接消息模板
   let message = `<img src="${playerInfo.data.avatar}"/>`
   message += '\n😀玩家名称: ' + playerInfo.data.name
   message += '\n📑注册日期: ' + dayjs(playerInfo.data.joinDate + 'Z').format('YYYY年MM月DD日')
@@ -56,10 +56,19 @@ module.exports = async (ctx, cfg, session, tmpId) => {
     message += '\n🚫封禁截止: '
     if (!playerInfo.data.displayBans) {
       message += '隐藏'
-    } else if (!playerInfo.data.bannedUntil) {
-      message += '永久'
     } else {
-      message += daiyjs(playerInfo.data.bannedUntil + 'Z').format('YYYY年MM月DD日 HH:mm')
+      let banData = await truckersMpApi.bans(ctx.http, tmpId)
+      if (!banData.error) {
+        let ban = banData.data[0]
+        if (!ban.expiration) {
+          message += '永久'
+        } else {
+          message += dayjs(ban.expiration + 'Z').format('YYYY年MM月DD日 HH:mm')
+        }
+        message += "\n🚫封禁原因: " + await baiduTranslate(ctx, cfg, ban.reason.replace(/((http|ftp|https|file):[^'"\s]+)/, ''), false)
+      } else {
+        message += '查询失败'
+      }
     }
   }
   message += '\n🚫封禁次数: ' + playerInfo.data.bansCount || 0

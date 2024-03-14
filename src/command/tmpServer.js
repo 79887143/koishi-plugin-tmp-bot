@@ -1,4 +1,4 @@
-const truckersMpApi = require('../api/TruckersMpApi')
+const truckersMpApi = require('../api/truckersMpApi')
 
 module.exports = async (ctx, cfg, game) => {
   // 查询服务器信息

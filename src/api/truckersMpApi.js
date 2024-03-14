@@ -46,5 +46,28 @@ module.exports = {
     }
 
     return data
+  },
+  /**
+   * 查询玩家封禁信息
+   */
+  async bans (http, tmpId) {
+    let result = null
+    try {
+      result = await http.get(`${BASE_API}/bans/${tmpId}`)
+    } catch {
+      return {
+        error: true
+      }
+    }
+
+    // 拼接返回数据
+    let data = {
+      error: JSON.parse(result.error)
+    }
+    if (!data.error) {
+      data.data = result.response
+    }
+
+    return data
   }
 }

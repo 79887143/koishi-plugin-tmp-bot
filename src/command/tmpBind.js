@@ -1,5 +1,5 @@
 const guildBind = require('../database/guildBind')
-const truckersMpApi = require("../api/TruckersMpApi");
+const truckersMpApi = require("../api/truckersMpApi");
 
 /**
  * 绑定 TMP ID

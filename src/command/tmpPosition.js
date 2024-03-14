@@ -2,7 +2,7 @@ const { segment } = require('koishi')
 const { resolve } = require('path')
 const guildBind = require('../database/guildBind')
 const truckyAppApi = require('../api/truckyAppApi')
-const truckersMpApi = require('../api/TruckersMpApi')
+const truckersMpApi = require('../api/truckersMpApi')
 const baiduTranslate = require('../util/baiduTranslate')
 
 /**
