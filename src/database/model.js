@@ -15,12 +15,6 @@ const modelArray = {
       nullable: false,
       comment: '所属平台'
     },
-    guild_id: {
-      type: 'string',
-      length: 50,
-      nullable: false,
-      comment: '群组编号'
-    },
     user_id: {
       type: 'string',
       length: 50,

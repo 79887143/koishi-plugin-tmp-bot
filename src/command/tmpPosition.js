@@ -16,7 +16,7 @@ module.exports = async (ctx, cfg, session, tmpId) => {
 
     // 如果没有传入tmpId，尝试从数据库查询绑定信息
     if (!tmpId) {
-      let guildBindData = await guildBind.get(ctx.database, session.platform, session.guildId, session.userId)
+      let guildBindData = await guildBind.get(ctx.database, session.platform, session.userId)
       if (!guildBindData) {
         return `请输入正确的玩家编号`
       }

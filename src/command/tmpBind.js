@@ -16,7 +16,7 @@ module.exports = async (ctx, cfg, session, tmpId) => {
   }
 
   // 更新数据库
-  guildBind.saveOrUpdate(ctx.database, session.platform, session.guildId, session.userId, session.author.username, tmpId)
+  guildBind.saveOrUpdate(ctx.database, session.platform, session.userId, session.author.username, tmpId)
 
   return `绑定成功 ( ${playerInfo.data.name} )`
 }
