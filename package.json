@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-tmp-bot",
   "description": "欧洲卡车模拟2 TMP查询机器人",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [

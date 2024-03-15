@@ -4,6 +4,7 @@ const guildBind = require('../database/guildBind')
 const truckyAppApi = require('../api/truckyAppApi')
 const truckersMpApi = require('../api/truckersMpApi')
 const baiduTranslate = require('../util/baiduTranslate')
+const common = require('../util/common')
 
 /**
  * 定位
@@ -54,6 +55,7 @@ module.exports = async (ctx, cfg, session, tmpId) => {
       await page.setViewport({ width: 1000, height: 1000 })
       await page.goto(`file:///${resolve(__dirname, '../resource/position.html')}`)
       await page.evaluate(`setData(${JSON.stringify(data)})`)
+      await common.sleep(100)
       await page.waitForNetworkIdle()
       const element = await page.$("#container");
       return (
