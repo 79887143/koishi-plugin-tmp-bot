@@ -62,7 +62,6 @@ module.exports = async (ctx, cfg, session, tmpId) => {
         }), "image/jpg")
       )
     } catch (e) {
-      console.info(e)
       return '渲染异常，请重试'
     } finally {
       if (page) {
