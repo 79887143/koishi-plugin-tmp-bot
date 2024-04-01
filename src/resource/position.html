@@ -113,23 +113,59 @@
     </div>
   </div>
   <script>
-    let multipliers = {
-      x: 71292,
-      y: 60412
-    }
-    let breakpoints = {
-      uk: {
-        x: -31056.8,
-        y: -5832.867
+    let mapConfig = {
+      ets: {
+        tileUrl: 'https://ets-map.oss-cn-beijing.aliyuncs.com/ets2/05102019/{z}/{x}/{y}.png',
+        multipliers: {
+          x: 71292,
+          y: 60412
+        },
+        breakpoints: {
+          uk: {
+            x: -31056.8,
+            y: -5832.867
+          }
+        },
+        bounds: {
+          y: 131072,
+          x: 131072
+        },
+        maxZoom: 8,
+        minZoom: 2,
+        // 游戏地转地图坐标
+        calculateMapCoordinate (x, y) {
+          return [
+            x / 1.325928 + mapConfig.ets.multipliers.x,
+            y / 1.325928 + mapConfig.ets.multipliers.y
+          ];
+        }
+      },
+      promods: {
+        tileUrl: 'https://tiles.truckyapp.com/promods/05102019/{z}/{x}/{y}.png',
+        multipliers: {
+          x: 41828,
+          y: 77369
+        },
+        breakpoints: {
+          uk: {
+            x: -31056.8,
+            y: -5832.867
+          }
+        },
+        bounds: {
+          y: 131072,
+          x: 131072
+        },
+        maxZoom: 8,
+        minZoom: 2,
+        // 游戏地转地图坐标
+        calculateMapCoordinate (x, y) {
+          return [
+            x / 2.303589 + mapConfig.promods.multipliers.x,
+            y / 2.303589 + mapConfig.promods.multipliers.y
+          ]
+        }
       }
-    }
-
-    // 游戏地转地图坐标
-    function calculateMapCoordinate(x, y) {
-      return [
-        x / 1.325928 + multipliers.x,
-        y / 1.325928 + multipliers.y
-      ];
     }
 
     // 定义地图
@@ -139,36 +175,36 @@
       zoomControl: false
     });
 
-    // 边界
-    let bounds = L.latLngBounds(
-      map.unproject([0, 131072], 2),
-      map.unproject([131072, 0], 2)
-    );
-
-    // 瓦片地图
-    L.tileLayer("https://ets-map.oss-cn-beijing.aliyuncs.com/ets2/05102019/{z}/{x}/{y}.png", {
-      minZoom: 2,
-      maxZoom: 10,
-      maxNativeZoom: 8,
-      tileSize: 512,
-      bounds: bounds,
-      reuseTiles: true
-    }).addTo(map);
-    map.setMaxBounds(
-      new L.LatLngBounds(
-        map.unproject([0, 131072], 8),
-        map.unproject([131072, 0], 8)
-      )
-    );
-
     function setData(data) {
+      // 边界
+      let bounds = L.latLngBounds(
+        map.unproject([0, mapConfig[data.mapType].bounds.y], mapConfig[data.mapType].maxZoom),
+        map.unproject([mapConfig[data.mapType].bounds.x, 0], mapConfig[data.mapType].maxZoom)
+      );
+
+      // 瓦片地图
+      L.tileLayer(mapConfig[data.mapType].tileUrl, {
+        minZoom: 2,
+        maxZoom: 10,
+        maxNativeZoom: 8,
+        tileSize: 512,
+        bounds: bounds,
+        reuseTiles: true
+      }).addTo(map);
+      map.setMaxBounds(
+        new L.LatLngBounds(
+          map.unproject([0, mapConfig[data.mapType].bounds.y], mapConfig[data.mapType].maxZoom),
+          map.unproject([mapConfig[data.mapType].bounds.x, 0], mapConfig[data.mapType].maxZoom)
+        )
+      );
+
       document.getElementsByClassName('avatar')[0].src = data.avatar
       document.getElementsByClassName('username')[0].innerText = data.username
       document.getElementsByClassName('server-name')[0].innerText = data.serverName
       document.getElementsByClassName('country')[0].innerText = data.country
       document.getElementsByClassName('real-name')[0].innerText = data.realName
 
-      L.circleMarker(map.unproject(calculateMapCoordinate(data.x, data.y), 8), {
+      L.circleMarker(map.unproject(mapConfig[data.mapType].calculateMapCoordinate(data.x, data.y), 8), {
         color: '#2f2f2f',       // 标记点边框颜色
         weight: 2,              // 标记点边框大小
         fillColor: '#158cfb',   // 标记点填充颜色
@@ -177,7 +213,7 @@
       }).addTo(map);
 
       // 移动地图到坐标，视角稍微向上移动
-      map.setView(map.unproject(calculateMapCoordinate(data.x, data.y + 80), 8), 7);
+      map.setView(map.unproject(mapConfig[data.mapType].calculateMapCoordinate(data.x, data.y + 80), 8), 7);
     }
   </script>
 </body>

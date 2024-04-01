@@ -39,7 +39,12 @@ module.exports = async (ctx, cfg, session, tmpId) => {
       return '玩家离线'
     }
 
+    // promods服ID集合
+    let promodsServerIdList = [50, 51]
+
+    // 构建地图数据
     let data = {
+      mapType: promodsServerIdList.indexOf(playerMapInfo.data.server) !== -1 ? 'promods' : 'ets',
       avatar: playerInfo.data.smallAvatar,
       username: playerInfo.data.name,
       serverName: playerMapInfo.data.serverDetails.name,
