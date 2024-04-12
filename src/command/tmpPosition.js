@@ -3,6 +3,7 @@ const { resolve } = require('path')
 const guildBind = require('../database/guildBind')
 const truckyAppApi = require('../api/truckyAppApi')
 const truckersMpApi = require('../api/truckersMpApi')
+const truckersMpMapApi = require('../api/truckersMpMapApi')
 const baiduTranslate = require('../util/baiduTranslate')
 const common = require('../util/common')
 
@@ -39,6 +40,13 @@ module.exports = async (ctx, cfg, session, tmpId) => {
       return '玩家离线'
     }
 
+    // 查询周边玩家
+    let areaPlayersData = await truckersMpMapApi.area(ctx.http, playerMapInfo.data.server,
+        playerMapInfo.data.x - 4000,
+        playerMapInfo.data.y + 2500,
+        playerMapInfo.data.x + 4000,
+        playerMapInfo.data.y - 2500)
+
     // promods服ID集合
     let promodsServerIdList = [50, 51]
 
@@ -50,8 +58,10 @@ module.exports = async (ctx, cfg, session, tmpId) => {
       serverName: playerMapInfo.data.serverDetails.name,
       country: await baiduTranslate(ctx, cfg, playerMapInfo.data.location.poi.country),
       realName: await baiduTranslate(ctx, cfg, playerMapInfo.data.location.poi.realName),
-      x: playerMapInfo.data.x,
-      y: playerMapInfo.data.y
+      currentPlayerId: tmpId,
+      centerX: playerMapInfo.data.x,
+      centerY: playerMapInfo.data.y,
+      playerList: areaPlayersData.data
     }
 
     let page

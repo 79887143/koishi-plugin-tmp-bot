@@ -204,16 +204,18 @@
       document.getElementsByClassName('country')[0].innerText = data.country
       document.getElementsByClassName('real-name')[0].innerText = data.realName
 
-      L.circleMarker(map.unproject(mapConfig[data.mapType].calculateMapCoordinate(data.x, data.y), 8), {
-        color: '#2f2f2f',       // 标记点边框颜色
-        weight: 2,              // 标记点边框大小
-        fillColor: '#158cfb',   // 标记点填充颜色
-        fillOpacity: 1,         // 标记点填充不透明度（0到1之间的值）
-        radius: 6               // 标记点半径（以像素为单位）
-      }).addTo(map);
+      for (let player of data.playerList) {
+        L.circleMarker(map.unproject(mapConfig[data.mapType].calculateMapCoordinate(player.X, player.Y), 8), {
+          color: '#2f2f2f',       // 标记点边框颜色
+          weight: 2,              // 标记点边框大小
+          fillColor: '#158cfb',   // 标记点填充颜色
+          fillOpacity: data.currentPlayerId === player.MpId.toString() ? 1 : 0.6, // 标记点填充不透明度（0到1之间的值）
+          radius: data.currentPlayerId === player.MpId.toString() ? 6 : 4         // 标记点半径（以像素为单位）
+        }).addTo(map);
+      }
 
       // 移动地图到坐标，视角稍微向上移动
-      map.setView(map.unproject(mapConfig[data.mapType].calculateMapCoordinate(data.x, data.y + 80), 8), 7);
+      map.setView(map.unproject(mapConfig[data.mapType].calculateMapCoordinate(data.centerX, data.centerY + 80), 8), 7);
     }
   </script>
 </body>
