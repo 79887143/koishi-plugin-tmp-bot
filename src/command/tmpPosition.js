@@ -40,12 +40,27 @@ module.exports = async (ctx, cfg, session, tmpId) => {
       return '玩家离线'
     }
 
-    // 查询周边玩家
+    // 查询周边玩家，并处理数据
     let areaPlayersData = await truckersMpMapApi.area(ctx.http, playerMapInfo.data.server,
         playerMapInfo.data.x - 4000,
         playerMapInfo.data.y + 2500,
         playerMapInfo.data.x + 4000,
         playerMapInfo.data.y - 2500)
+    let areaPlayerList = []
+    if (!areaPlayersData.error) {
+      areaPlayerList = areaPlayersData.data
+      let index = areaPlayerList.findIndex((player) => {
+        return player.MpId.toString() === tmpId
+      })
+      if (index !== -1) {
+        areaPlayerList.splice(index, 1)
+      }
+    }
+    areaPlayerList.push({
+      X: playerMapInfo.data.x,
+      Y: playerMapInfo.data.y,
+      MpId: tmpId
+    })
 
     // promods服ID集合
     let promodsServerIdList = [50, 51]
@@ -61,7 +76,7 @@ module.exports = async (ctx, cfg, session, tmpId) => {
       currentPlayerId: tmpId,
       centerX: playerMapInfo.data.x,
       centerY: playerMapInfo.data.y,
-      playerList: areaPlayersData.data
+      playerList: areaPlayerList
     }
 
     let page
