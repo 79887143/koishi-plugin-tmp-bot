@@ -39,10 +39,22 @@ const serverAlias = {
  * 路况程度转中文
  */
 const severityToZh = {
-  'Fluid': '🟢畅通',
-  'Moderate': '🟠正常',
-  'Congested': '🔴缓慢',
-  'Heavy': '🟣拥堵'
+  'Fluid': {
+    text: '畅通',
+    color: '#00d26a'
+  },
+  'Moderate': {
+    text: '正常',
+    color: '#ff6723'
+  },
+  'Congested': {
+    text: '缓慢',
+    color: '#f8312f'
+  },
+  'Heavy': {
+    text: '拥堵',
+    color: '#8d67c5'
+  }
 }
 
 /**
@@ -88,7 +100,7 @@ module.exports = async (ctx, cfg, serverName) => {
       country: await baiduTranslate(ctx, cfg, traffic.country),
       province: await baiduTranslate(ctx, cfg, traffic.name.substring(0, traffic.name.lastIndexOf('(') - 1)),
       playerCount: traffic.players,
-      severity: severityToZh[traffic.newSeverity] || traffic.color
+      severity: severityToZh[traffic.newSeverity] || { text: '未知', color: '#ffffff' }
     })
   }
 

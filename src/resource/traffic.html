@@ -45,6 +45,10 @@
       border-right: 1px solid rgba(255, 255, 255, 0.3);
       box-sizing: border-box;
       padding: 0 10px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
     }
     .traffic-item:nth-child(-n+3) {
       margin-top: 0;
@@ -54,7 +58,10 @@
     }
     .traffic-item .region-info {
       display: inline-block;
-      width: 64%;
+      width: 72%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .traffic-item .player-count {
       display: inline-block;
@@ -63,7 +70,7 @@
     }
     .traffic-item .traffic-status {
       display: inline-block;
-      width: 20%;
+      width: 12%;
       text-align: right;
     }
   </style>
@@ -187,7 +194,7 @@
       for (const traffic of data.trafficList) {
         document.getElementsByClassName('traffic-box')[0].insertAdjacentHTML('beforeend', `
           <div class="traffic-item">
-            <span class="region-info"><strong>${traffic.country}</strong> ${traffic.province}</span><span class="player-count">${traffic.playerCount}人</span><span class="traffic-status">${traffic.severity}</span>
+            <span class="region-info"><strong>${traffic.country}</strong> ${traffic.province}</span><span class="player-count">${traffic.playerCount}人</span><span class="traffic-status" style="color: ${traffic.severity.color}">${traffic.severity.text}</span>
           </div>
         `);
       }
