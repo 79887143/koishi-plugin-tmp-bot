@@ -3,7 +3,7 @@ const model = require('./database/model')
 const tmpQuery = require('./command/tmpQuery')
 const tmpServer = require('./command/tmpServer')
 const tmpBind = require('./command/tmpBind')
-const tmpTraffic = require('./command/tmpTraffic')
+const tmpTraffic = require('./command/tmpTraffic/tmpTraffic')
 const tmpPosition = require('./command/tmpPosition')
 
 export const name = 'tmp-bot'
@@ -19,12 +19,20 @@ export interface Config {
   baiduTranslateCacheEnable: boolean
 }
 
-export const Config: Schema<Config> = Schema.object({
-  baiduTranslateEnable: Schema.boolean().default(false).description('启用百度翻译'),
-  baiduTranslateAppId: Schema.string().description('百度翻译APP ID'),
-  baiduTranslateKey: Schema.string().description('百度翻译秘钥'),
-  baiduTranslateCacheEnable: Schema.boolean().default(false).description('启用百度翻译缓存')
-})
+export const Config: Schema<Config> = Schema.intersect([
+  Schema.object({
+    baiduTranslateEnable: Schema.boolean().default(false).description('启用百度翻译'),
+    baiduTranslateAppId: Schema.string().description('百度翻译APP ID'),
+    baiduTranslateKey: Schema.string().description('百度翻译秘钥'),
+    baiduTranslateCacheEnable: Schema.boolean().default(false).description('启用百度翻译缓存')
+  }).description('基本配置'),
+  Schema.object({
+    tmpTrafficType: Schema.union([
+      Schema.const(1).description('文字'),
+      Schema.const(2).description('热力图')
+    ]).default(1).description('路况信息展示方式'),
+  }).description('指令配置'),
+])
 
 export function apply(ctx: Context, cfg: Config) {
   // 初始化数据表

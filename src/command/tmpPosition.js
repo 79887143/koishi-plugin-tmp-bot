@@ -97,7 +97,7 @@ module.exports = async (ctx, cfg, session, tmpId) => {
       return '渲染异常，请重试'
     } finally {
       if (page) {
-        page.close()
+        await page.close()
       }
     }
 

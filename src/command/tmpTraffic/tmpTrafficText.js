@@ -1,5 +1,5 @@
-const truckyAppApi = require('../api/truckyAppApi')
-const baiduTranslate = require('../util/baiduTranslate')
+const truckyAppApi = require('../../api/truckyAppApi')
+const baiduTranslate = require('../../util/baiduTranslate')
 
 /**
  * 服务器别名
