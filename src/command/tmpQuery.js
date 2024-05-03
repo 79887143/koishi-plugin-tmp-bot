@@ -67,7 +67,7 @@ module.exports = async (ctx, cfg, session, tmpId) => {
         } else {
           message += dayjs(ban.expiration + 'Z').format('YYYY年MM月DD日 HH:mm')
         }
-        message += "\n🚫封禁原因: " + await baiduTranslate(ctx, cfg, ban.reason.replace(/((http|ftp|https|file):[^'"\s]+)/, ''), false)
+        message += "\n🚫封禁原因: " + await baiduTranslate(ctx, cfg, ban.reason, false)
       } else {
         message += '查询失败'
       }
