@@ -109,10 +109,10 @@
         }
       },
       promods: {
-        tileUrl: 'https://tiles.truckyapp.com/promods/05102019/{z}/{x}/{y}.png',
+        tileUrl: 'https://ets-map.oss-cn-beijing.aliyuncs.com/promods/05102019/{z}/{x}/{y}.png',
         multipliers: {
-          x: 41828,
-          y: 77369
+          x: 51953,
+          y: 76024
         },
         breakpoints: {
           uk: {
@@ -129,8 +129,8 @@
         // 游戏地转地图坐标
         calculateMapCoordinate (x, y) {
           return [
-            x / 2.303589 + mapConfig.promods.multipliers.x,
-            y / 2.303589 + mapConfig.promods.multipliers.y
+            x / 2.598541 + mapConfig.promods.multipliers.x,
+            y / 2.598541 + mapConfig.promods.multipliers.y
           ]
         }
       }
