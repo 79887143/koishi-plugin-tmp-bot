@@ -21,12 +21,6 @@ const modelArray = {
       nullable: false,
       comment: '用户编号'
     },
-    user_name: {
-      type: 'string',
-      length: 50,
-      nullable: false,
-      comment: '用户昵称'
-    },
     tmp_id: {
       type: 'unsigned',
       length: 50,

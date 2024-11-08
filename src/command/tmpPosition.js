@@ -50,7 +50,7 @@ module.exports = async (ctx, cfg, session, tmpId) => {
     if (!areaPlayersData.error) {
       areaPlayerList = areaPlayersData.data
       let index = areaPlayerList.findIndex((player) => {
-        return player.MpId.toString() === tmpId
+        return player.MpId.toString() === tmpId.toString()
       })
       if (index !== -1) {
         areaPlayerList.splice(index, 1)
