@@ -81,5 +81,12 @@ module.exports = async (ctx, cfg, session, tmpId) => {
     message += ' - '
     message += await baiduTranslate(ctx, cfg, playerMapInfo.data.location.poi.realName)
   }
+  let patreon = playerInfo.data.patreon
+  if (patreon && patreon.active) {
+    message += '\n🎁赞助用户'
+    if (!patreon.hidden) {
+      message += ` (\$${Math.floor(patreon.currentPledge / 100)})`
+    }
+  }
   return message
 }
