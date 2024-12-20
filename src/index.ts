@@ -5,6 +5,7 @@ const tmpServer = require('./command/tmpServer')
 const tmpBind = require('./command/tmpBind')
 const tmpTraffic = require('./command/tmpTraffic/tmpTraffic')
 const tmpPosition = require('./command/tmpPosition')
+const tmpVersion = require('./command/tmpVersion')
 
 export const name = 'tmp-bot'
 export const inject = {
@@ -45,4 +46,5 @@ export function apply(ctx: Context, cfg: Config) {
   ctx.command('tmpbind <tmpId>').action(async ({ session }, tmpId) => await tmpBind(ctx, cfg, session, tmpId))
   ctx.command('tmptraffic <serverName>').action(async ({ session }, serverName) => await tmpTraffic(ctx, cfg, serverName))
   ctx.command('tmpposition <tmpId>').action(async ({ session }, tmpId) => await tmpPosition(ctx, cfg, session, tmpId))
+  ctx.command('tmpversion').action(async () => await tmpVersion(ctx))
 }

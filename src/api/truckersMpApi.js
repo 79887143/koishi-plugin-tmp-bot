@@ -69,5 +69,24 @@ module.exports = {
     }
 
     return data
+  },
+  /**
+   * 游戏版本
+   */
+  async version (http) {
+    let result = null
+    try {
+      result = await http.get(`${BASE_API}/version`)
+    } catch {
+      return {
+        error: true
+      }
+    }
+
+    // 拼接返回数据
+    return {
+      error: false,
+      data: result
+    }
   }
 }

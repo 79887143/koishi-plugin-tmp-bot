@@ -12,8 +12,8 @@ const userGroup = {
   'Retired Legend': '退役',
   'Game Developer': '游戏开发者',
   'Retired Team Member': '退休团队成员',
-  'Add-On Team': 'Add-On Team',
-  'Game Moderator': 'Game Moderator'
+  'Add-On Team': '附加组件团队',
+  'Game Moderator': '游戏管理员'
 }
 
 /**
@@ -48,8 +48,10 @@ module.exports = async (ctx, cfg, session, tmpId) => {
   // 拼接消息模板
   let message = `<img src="${playerInfo.data.avatar}"/>`
   message += '\n😀玩家名称: ' + playerInfo.data.name
-  message += '\n📑注册日期: ' + dayjs(playerInfo.data.joinDate + 'Z').format('YYYY年MM月DD日')
-  message += '\n💼所属分组: ' + (userGroup[playerInfo.data.groupName] || playerInfo.data.groupName) // 🪪💼📂🚹
+  message += '\n🎮SteamID: ' + playerInfo.data.steamID64
+  let registerDate = dayjs(playerInfo.data.joinDate + 'Z')
+  message += '\n📑注册日期: ' + registerDate.format('YYYY年MM月DD日') + ` (${dayjs().diff(registerDate, 'day')}天)`
+  message += '\n💼所属分组: ' + (userGroup[playerInfo.data.groupName] || playerInfo.data.groupName)
   if (playerInfo.data.vtc && playerInfo.data.vtc.inVTC) {
     message += '\n🚚所属车队: ' + playerInfo.data.vtc.name
   }
