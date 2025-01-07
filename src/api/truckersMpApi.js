@@ -88,5 +88,28 @@ module.exports = {
       error: false,
       data: result
     }
+  },
+  /**
+   * 查询车队成员信息
+   */
+  async vtcMember (http, vtcId, memberId) {
+    let result = null
+    try {
+      result = await http.get(`${BASE_API}/vtc/${vtcId}/member/${memberId}`)
+    } catch {
+      return {
+        error: true
+      }
+    }
+
+    // 拼接返回数据
+    let data = {
+      error: JSON.parse(result.error)
+    }
+    if (!data.error) {
+      data.data = result.response
+    }
+
+    return data
   }
 }
