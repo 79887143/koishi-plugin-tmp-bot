@@ -41,9 +41,6 @@ module.exports = async (ctx, cfg, session, tmpId) => {
 
   // 查询线上信息
   let playerMapInfo = await truckyAppApi.online(ctx.http, tmpId)
-  if (playerMapInfo.error) {
-    return '查询玩家信息失败，请重试'
-  }
 
   // 拼接消息模板
   let message = `<img src="${playerInfo.data.avatar}"/>`
@@ -85,12 +82,14 @@ module.exports = async (ctx, cfg, session, tmpId) => {
     }
   }
   message += '\n🚫封禁次数: ' + playerInfo.data.bansCount || 0
-  message += '\n📶在线状态: ' + (playerMapInfo.data.online ? `在线🟢 (${playerMapInfo.data.serverDetails.name})` : '离线⚫')
-  if (playerMapInfo.data.online) {
-    message += '\n🌍线上位置: '
-    message += await baiduTranslate(ctx, cfg, playerMapInfo.data.location.poi.country)
-    message += ' - '
-    message += await baiduTranslate(ctx, cfg, playerMapInfo.data.location.poi.realName)
+  if (playerMapInfo && !playerMapInfo.error) {
+    message += '\n📶在线状态: ' + (playerMapInfo.data.online ? `在线🟢 (${playerMapInfo.data.serverDetails.name})` : '离线⚫')
+    if (playerMapInfo.data.online) {
+      message += '\n🌍线上位置: '
+      message += await baiduTranslate(ctx, cfg, playerMapInfo.data.location.poi.country)
+      message += ' - '
+      message += await baiduTranslate(ctx, cfg, playerMapInfo.data.location.poi.realName)
+    }
   }
   let patreon = playerInfo.data.patreon
   if (patreon && patreon.active) {
