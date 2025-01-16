@@ -28,6 +28,7 @@ export const Config: Schema<Config> = Schema.intersect([
     baiduTranslateCacheEnable: Schema.boolean().default(false).description('启用百度翻译缓存')
   }).description('基本配置'),
   Schema.object({
+    queryShowAvatarEnable: Schema.boolean().default(false).description('查询指令展示头像，部分玩家的擦边头像可能导致封号'),
     tmpTrafficType: Schema.union([
       Schema.const(1).description('文字'),
       Schema.const(2).description('热力图')

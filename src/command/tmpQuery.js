@@ -43,8 +43,11 @@ module.exports = async (ctx, cfg, session, tmpId) => {
   let playerMapInfo = await truckyAppApi.online(ctx.http, tmpId)
 
   // 拼接消息模板
-  let message = `<img src="${playerInfo.data.avatar}"/>`
-  message += '\n🆔TMP编号: ' + playerInfo.data.id
+  let message = ''
+  if (cfg.queryShowAvatarEnable) {
+    message += `<img src="${playerInfo.data.avatar}"/>\n`
+  }
+  message += '🆔TMP编号: ' + playerInfo.data.id
   message += '\n😀玩家名称: ' + playerInfo.data.name
   message += '\n🎮SteamID: ' + playerInfo.data.steamID64
   let registerDate = dayjs(playerInfo.data.joinDate + 'Z')
