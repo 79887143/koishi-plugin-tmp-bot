@@ -43,8 +43,7 @@ export function apply(ctx: Context, cfg: Config) {
 
   // 注册指令
   ctx.command('tmpquery <tmpId>').action(async ({ session }, tmpId) => await tmpQuery(ctx, cfg, session, tmpId))
-  ctx.command('tmpserverats').action(async () => await tmpServer(ctx, cfg, 'ATS'))
-  ctx.command('tmpserverets').action(async () => await tmpServer(ctx, cfg, 'ETS2'))
+  ctx.command('tmpserverets').action(async () => await tmpServer(ctx))
   ctx.command('tmpbind <tmpId>').action(async ({ session }, tmpId) => await tmpBind(ctx, cfg, session, tmpId))
   ctx.command('tmptraffic <serverName>').action(async ({ session }, serverName) => await tmpTraffic(ctx, cfg, serverName))
   ctx.command('tmpposition <tmpId>').action(async ({ session }, tmpId) => await tmpPosition(ctx, cfg, session, tmpId))
