@@ -1,5 +1,5 @@
 const truckyAppApi = require('../../api/truckyAppApi')
-const truckersMpMapApi = require('../../api/truckersMpMapApi')
+const evmOpenApi = require('../../api/evmOpenApi')
 const baiduTranslate = require('../../util/baiduTranslate')
 const {resolve} = require("path");
 const common = require("../../util/common");
@@ -87,13 +87,13 @@ module.exports = async (ctx, cfg, serverName) => {
   }
 
   // 查询地图玩家数据
-  let mapData = await truckersMpMapApi.area(ctx.http, serverInfo.serverId, serverInfo.bounds[0][0], serverInfo.bounds[0][1], serverInfo.bounds[1][0], serverInfo.bounds[1][1])
+  let mapData = await evmOpenApi.mapPlayerList(ctx.http, serverInfo.serverId, serverInfo.bounds[0][0], serverInfo.bounds[0][1], serverInfo.bounds[1][0], serverInfo.bounds[1][1])
 
   // 构建路况数据
   let data = {
     mapType: serverInfo.mapType,
     trafficList: [],
-    playerCoordinateList: mapData.error && mapData.data ? [] : mapData.data.map(item => [item.X, item.Y])
+    playerCoordinateList: mapData.error && mapData.data ? [] : mapData.data.map(item => [item.axisX, item.axisY])
   }
   for (const traffic of trafficData.data) {
     data.trafficList.push({

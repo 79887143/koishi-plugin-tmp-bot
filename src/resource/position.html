@@ -205,13 +205,13 @@
       document.getElementsByClassName('real-name')[0].innerText = data.realName
 
       for (let player of data.playerList) {
-        L.circleMarker(map.unproject(mapConfig[data.mapType].calculateMapCoordinate(player.X, player.Y), 8), {
+        L.circleMarker(map.unproject(mapConfig[data.mapType].calculateMapCoordinate(player.axisX, player.axisY), 8), {
           color: '#2f2f2f',       // 标记点边框颜色
           weight: 2,              // 标记点边框大小
-          fillColor: data.currentPlayerId.toString() === player.MpId.toString() ? '#1cb715' : '#158cfb',   // 标记点填充颜色
+          fillColor: data.currentPlayerId.toString() === player.tmpId.toString() ? '#1cb715' : '#158cfb',   // 标记点填充颜色
           fillOpacity: 1,         // 标记点填充不透明度（0到1之间的值）
           radius: 5,              // 标记点半径（以像素为单位）
-          zIndex: data.currentPlayerId.toString() === player.MpId.toString() ? 1000 : undefined
+          zIndex: data.currentPlayerId.toString() === player.tmpId.toString() ? 1000 : undefined
         }).addTo(map);
       }
 

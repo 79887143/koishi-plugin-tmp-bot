@@ -3,7 +3,7 @@ const { resolve } = require('path')
 const guildBind = require('../database/guildBind')
 const truckyAppApi = require('../api/truckyAppApi')
 const truckersMpApi = require('../api/truckersMpApi')
-const truckersMpMapApi = require('../api/truckersMpMapApi')
+const evmOpenApi = require('../api/evmOpenApi')
 const baiduTranslate = require('../util/baiduTranslate')
 const common = require('../util/common')
 
@@ -41,7 +41,7 @@ module.exports = async (ctx, cfg, session, tmpId) => {
     }
 
     // 查询周边玩家，并处理数据
-    let areaPlayersData = await truckersMpMapApi.area(ctx.http, playerMapInfo.data.server,
+    let areaPlayersData = await evmOpenApi.mapPlayerList(ctx.http, playerMapInfo.data.server,
         playerMapInfo.data.x - 4000,
         playerMapInfo.data.y + 2500,
         playerMapInfo.data.x + 4000,
@@ -50,16 +50,16 @@ module.exports = async (ctx, cfg, session, tmpId) => {
     if (!areaPlayersData.error) {
       areaPlayerList = areaPlayersData.data
       let index = areaPlayerList.findIndex((player) => {
-        return player.MpId.toString() === tmpId.toString()
+        return player.tmpId.toString() === tmpId.toString()
       })
       if (index !== -1) {
         areaPlayerList.splice(index, 1)
       }
     }
     areaPlayerList.push({
-      X: playerMapInfo.data.x,
-      Y: playerMapInfo.data.y,
-      MpId: tmpId
+      axisX: playerMapInfo.data.x,
+      axisY: playerMapInfo.data.y,
+      tmpId
     })
 
     // promods服ID集合
