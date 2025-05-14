@@ -84,7 +84,7 @@ module.exports = async (ctx, cfg, session, tmpId) => {
   if (playerInfo.data.isSponsor) {
     message += '\n🎁赞助用户'
     if (!playerInfo.data.sponsorHide) {
-      message += ` (\$${Math.floor(playerInfo.data.sponsorAmount / 100)})`
+      message += `: \$${Math.floor(playerInfo.data.sponsorAmount / 100)}`
     }
   }
   if (playerInfo.data.sponsorCumulativeAmount) {
