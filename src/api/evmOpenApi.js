@@ -45,5 +45,27 @@ module.exports = {
       data.data = result.data
     }
     return data
+  },
+  /**
+   * 查询玩家信息
+   */
+  async playerInfo (http, tmpId) {
+    let result = null
+    try {
+      result = await http.get(`${BASE_API}/player/info?tmpId=${tmpId}`)
+    } catch {
+      return {
+        error: true
+      }
+    }
+
+    // 拼接返回数据
+    let data = {
+      error: result.code !== 200
+    }
+    if (!data.error) {
+      data.data = result.data
+    }
+    return data
   }
 }
