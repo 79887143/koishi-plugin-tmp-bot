@@ -87,5 +87,8 @@ module.exports = async (ctx, cfg, session, tmpId) => {
       message += ` (\$${Math.floor(playerInfo.data.sponsorAmount / 100)})`
     }
   }
+  if (playerInfo.data.sponsorCumulativeAmount) {
+    message += '\n🎁累计赞助: $' + Math.floor(playerInfo.data.sponsorCumulativeAmount / 100)
+  }
   return message
 }
