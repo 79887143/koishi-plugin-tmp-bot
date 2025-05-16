@@ -83,7 +83,6 @@ module.exports = async (ctx, cfg, session, tmpId) => {
   data.banReasonZh = playerInfo.data.banReasonZh
   data.banCount = playerInfo.data.banCount
   data.banHide = playerInfo.data.banHide
-  console.info(data)
 
   let page
   try {
