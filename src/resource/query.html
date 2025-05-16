@@ -6,6 +6,16 @@
   <link href="./package/leaflet/leaflet.min.css" rel="stylesheet">
   <script src="./package/leaflet/leaflet.min.js"></script>
   <style>
+    @font-face {
+      font-family: 'segui-emj';
+      src: url('./package/SEGUIEMJ.TTF');
+      font-weight: normal;
+      font-style: normal;
+    }
+    body {
+      font-family: 'segui-emj', serif;
+    }
+
     .border {
       border: 1px solid red;
     }
@@ -63,6 +73,8 @@
       padding: 2px 4px;
       margin-left: 6px;
       border-radius: 4px;
+      text-shadow: 0 4px 4px rgba(0, 0, 0, 0.8),
+                    0 -4px 4px rgba(0, 0, 0, 0.8);
     }
 
     .details-container {
@@ -144,14 +156,6 @@
       height: 150px;
       background-color: rgba(0, 0, 0, 0.25);
     }
-
-    .footer {
-      color: rgba(255, 255, 255, .5);
-      font-size: 14px;
-      text-align: center;
-      font-weight: 100;
-      margin-top: 16px;
-    }
   </style>
 </head>
 <body>
@@ -215,7 +219,6 @@
         </div>
       </div>
     </div>
-    <div class="footer">如需更换为文本展示方式，请联系QQ79887143</div>
   </div>
   <script>
     let mapConfig = {
@@ -276,7 +279,7 @@
     function init(data) {
       document.getElementById('tmp-name').innerText = data.name
       document.getElementById('tmp-avatar').src = data.avatarUrl
-      document.getElementById('tmp-id').innerHTML = `TMP#${data.tmpId} <span class="group" style="background-color: #${data.groupColor}">${data.groupName}</span>`
+        document.getElementById('tmp-id').innerHTML = `TMP#${data.tmpId} <span class="group" style="background-color: #${data.groupColor}">${data.groupName}</span>`
       document.getElementById('tmp-steam-id').innerText = data.steamId
       document.getElementById('tmp-register-date').innerText = data.registerDate
       if (data.isJoinVtc) {
@@ -295,7 +298,7 @@
       }
       if (data.isOnline) {
         document.getElementById('position-title').innerText = `${data.onlineServerName} · ${data.onlineCountry}-${data.onlineCity}`
-        map('ets', data.onlineX, data.onlineY)
+        map(data.onlineMapType, data.onlineX, data.onlineY)
       } else {
         document.getElementById('position-box').remove()
       }

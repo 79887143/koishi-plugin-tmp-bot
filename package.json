@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-tmp-bot",
   "description": "欧洲卡车模拟2 TMP查询插件，不会部署的可以直接使用此机器人->QQ:3523283907",
-  "version": "1.16.0",
+  "version": "1.16.7",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "homepage": "https://github.com/79887143/koishi-plugin-tmp-bot",
@@ -28,10 +28,10 @@
     }
   },
   "peerDependencies": {
-    "koishi": "^4.17.1"
+    "koishi": "^4.18.7"
   },
   "dependencies": {
-    "dayjs": "^1.11.10",
+    "dayjs": "^1.11.13",
     "js-md5": "^0.8.3"
   }
 }
