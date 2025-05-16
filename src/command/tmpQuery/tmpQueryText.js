@@ -1,8 +1,8 @@
 const dayjs = require('dayjs')
-const guildBind = require('../database/guildBind')
-const truckyAppApi = require('../api/truckyAppApi')
-const evmOpenApi = require('../api/evmOpenApi')
-const baiduTranslate = require('../util/baiduTranslate')
+const guildBind = require('../../database/guildBind')
+const truckyAppApi = require('../../api/truckyAppApi')
+const evmOpenApi = require('../../api/evmOpenApi')
+const baiduTranslate = require('../../util/baiduTranslate')
 
 /**
  * 用户组

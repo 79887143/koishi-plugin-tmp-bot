@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link href="./package/leaflet/leaflet.min.css" rel="stylesheet">
+  <script src="./package/leaflet/leaflet.min.js"></script>
+  <style>
+    .border {
+      border: 1px solid red;
+    }
+
+    .form-box {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .form-box .form-item {
+      width: 50%;
+    }
+    .form-box .form-item.full {
+      width: 100%;
+    }
+
+    #container {
+      width: 400px;
+      background: linear-gradient(135deg, #1f2f54, #0f2c2a);
+      overflow: hidden;
+    }
+
+    .header {
+      height: 100px;
+      background-color: rgba(0, 0, 0, .1);
+      display: flex;
+      align-items: center;
+      padding: 0 26px;
+      box-shadow: 0 0 16px rgba(0, 0, 0, .4);
+    }
+    .header .avatar {
+      width: 64px;
+      height: 64px;
+    }
+    .header .info {
+      flex: 1;
+      padding-left: 16px;
+    }
+    .header .info .name {
+      color: #b0c7ff;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .header .info .tmp-id {
+      color: #aaaaaa;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+    .header .info .group {
+      color: #ffffff;
+      font-size: 12px;
+      padding: 2px 4px;
+      margin-left: 6px;
+      border-radius: 4px;
+    }
+
+    .details-container {
+      padding: 16px 20px 0 20px;
+    }
+    .details-container .form-item {
+      background-color: rgba(0, 0, 0, 0.2);
+      box-sizing: border-box;
+    }
+    .details-container .form-item:nth-child(1) {
+      margin-top: 0;
+    }
+    .details-container .form-item .label {
+      color: #dddddd;
+      background-color: rgba(0, 0, 0, 0.2);
+      padding: 4px 8px;
+    }
+    .details-container .form-item .value {
+      color: #ffffff;
+      padding: 4px 8px;
+    }
+
+    .ban-container {
+      margin: 16px 20px;
+      background-color: rgba(227, 92, 92, 0.3);
+    }
+    .ban-header {
+      width: 100%;
+      height: 30px;
+      box-sizing: border-box;
+      padding: 0 12px;
+      color: #ffffff;
+      font-size: 14px;
+      line-height: 30px;
+      background-color: rgba(227, 92, 92, 0.6);
+    }
+    .ban-body {
+      padding: 12px 16px;
+    }
+    .ban-body .ban-hidden {
+      color: #cccccc;
+      font-size: 14px;
+      font-style: italic;
+      text-align: center;
+    }
+    .ban-body .form-item {
+      margin-top: 8px;
+    }
+    .ban-body .form-item:nth-child(1),
+    .ban-body .form-item:nth-child(2) {
+      margin-top: 0;
+    }
+    .ban-body .form-item .label {
+      color: #f3f3f3;
+      font-size: 12px;
+    }
+    .ban-body .form-item .value {
+      color: #eeeeee;
+      font-size: 14px;
+      word-wrap: break-word;
+      word-break: break-all;
+    }
+
+    .position-container {
+      margin: 16px 20px;
+    }
+    .position-container .position-header {
+      width: 100%;
+      height: 30px;
+      box-sizing: border-box;
+      padding: 0 12px;
+      color: #ffffff;
+      font-size: 14px;
+      line-height: 30px;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+    .position-container #map {
+      width: 100%;
+      height: 150px;
+      background-color: rgba(0, 0, 0, 0.25);
+    }
+  </style>
+</head>
+<body>
+  <!--
+🆔TMP编号: 5672599
+😀玩家名称: MakeKazakh
+🎮SteamID: 76561199225329400
+📑注册日期: 2024年11月03日 (186天)
+💼所属分组: 玩家
+🚚所属车队: Kazakhstan-Taraz Truckers
+🚚车队角色: Owner
+🚫是否封禁: 否
+🚫封禁次数: 0
+📶在线状态: 在线🟢 (Simulation 1)
+🌍线上位置: 法国 - 加莱-杜伊斯堡 -->
+  <div id="container">
+    <div class="header">
+      <img class="avatar" src="https://static.truckersmp.com/avatarsN/4763167.1710207515.jpg" alt="avatar"/>
+      <div class="info">
+        <div class="name">*ACC* 014 kuroneko</div>
+        <div class="tmp-id">TMP#4763167 <span class="group" style="background-color: #8bc34a">玩家</span></div>
+      </div>
+    </div>
+    <div class="details-container">
+      <div class="form-box">
+        <div class="form-item full">
+          <div class="label">🎮SteamID</div>
+          <div class="value">76561198354836885</div>
+        </div>
+        <div class="form-item full">
+          <div class="label">📑注册日期</div>
+          <div class="value">2024年12月18日</div>
+        </div>
+        <div class="form-item full">
+          <div class="label">🚚所属车队</div>
+          <div class="value">Kazakhstan-Taraz Truckers</div>
+        </div>
+        <div class="form-item full">
+          <div class="label">🚚车队角色</div>
+          <div class="value">Owner</div>
+        </div>
+        <div class="form-item">
+          <div class="label">🎁赞助用户</div>
+          <div class="value">$5</div>
+        </div>
+        <div class="form-item">
+          <div class="label">🎁累计赞助</div>
+          <div class="value">$10</div>
+        </div>
+      </div>
+    </div>
+    <div class="position-container">
+      <div class="position-header">Simulation 1 · 法国-加莱-杜伊斯堡</div>
+      <div id="map"></div>
+    </div>
+    <div class="ban-container">
+      <div class="ban-header">封禁中</div>
+      <div class="ban-body">
+<!--        <div class="ban-hidden">玩家隐藏</div>-->
+        <div class="form-box">
+          <div class="form-item">
+            <div class="label">截止时间</div>
+            <div class="value">2025年06月11日 22:06</div>
+          </div>
+          <div class="form-item">
+            <div class="label">封禁次数</div>
+            <div class="value">4次</div>
+          </div>
+          <div class="form-item full">
+            <div class="label">原因</div>
+            <div class="value">§2.2-碰撞，§2.5-鲁莽驾驶-https://youtu.be/f3T5m8bjRz0//由于历史原因，3个月</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    let mapConfig = {
+      ets: {
+        tileUrl: 'https://ets-map.oss-cn-beijing.aliyuncs.com/ets2/05102019/{z}/{x}/{y}.png',
+        multipliers: {
+          x: 71282,
+          y: 56532
+        },
+        breakpoints: {
+          uk: {
+            x: -31056.8,
+            y: -5832.867
+          }
+        },
+        bounds: {
+          y: 131072,
+          x: 131072
+        },
+        maxZoom: 8,
+        minZoom: 2,
+        // 游戏地转地图坐标
+        calculateMapCoordinate (x, y) {
+          return [
+            x / 1.325928 + mapConfig.ets.multipliers.x,
+            y / 1.325928 + mapConfig.ets.multipliers.y
+          ];
+        }
+      },
+      promods: {
+        tileUrl: 'https://ets-map.oss-cn-beijing.aliyuncs.com/promods/05102019/{z}/{x}/{y}.png',
+        multipliers: {
+          x: 51953,
+          y: 76024
+        },
+        breakpoints: {
+          uk: {
+            x: -31056.8,
+            y: -5832.867
+          }
+        },
+        bounds: {
+          y: 131072,
+          x: 131072
+        },
+        maxZoom: 8,
+        minZoom: 2,
+        // 游戏地转地图坐标
+        calculateMapCoordinate (x, y) {
+          return [
+            x / 2.598541 + mapConfig.promods.multipliers.x,
+            y / 2.598541 + mapConfig.promods.multipliers.y
+          ]
+        }
+      }
+    }
+
+    let data = {
+      mapType: 'ets',
+      centerX: -29602,
+      centerY: -3370
+    }
+
+    // 定义地图
+    let map = L.map('map', {
+      attributionControl: false,
+      crs: L.CRS.Simple,
+      zoomControl: false
+    });
+
+    // 边界
+    let bounds = L.latLngBounds(
+      map.unproject([0, mapConfig[data.mapType].bounds.y], mapConfig[data.mapType].maxZoom),
+      map.unproject([mapConfig[data.mapType].bounds.x, 0], mapConfig[data.mapType].maxZoom)
+    );
+
+    // 瓦片地图
+    L.tileLayer(mapConfig[data.mapType].tileUrl, {
+      minZoom: 2,
+      maxZoom: 10,
+      maxNativeZoom: 8,
+      tileSize: 512,
+      bounds: bounds,
+      reuseTiles: true
+    }).addTo(map);
+    map.setMaxBounds(
+      new L.LatLngBounds(
+        map.unproject([0, mapConfig[data.mapType].bounds.y], mapConfig[data.mapType].maxZoom),
+        map.unproject([mapConfig[data.mapType].bounds.x, 0], mapConfig[data.mapType].maxZoom)
+      )
+    );
+
+    L.circleMarker(map.unproject(mapConfig[data.mapType].calculateMapCoordinate(data.centerX, data.centerY), 8), {
+      color: '#2f2f2f',       // 标记点边框颜色
+      weight: 2,              // 标记点边框大小
+      fillColor: '#1cb715',   // 标记点填充颜色
+      fillOpacity: 1,         // 标记点填充不透明度（0到1之间的值）
+      radius: 5,              // 标记点半径（以像素为单位）
+      zIndex: 1000
+    }).addTo(map);
+
+    // 设置中心点
+    map.setView(map.unproject(mapConfig[data.mapType].calculateMapCoordinate(data.centerX, data.centerY), 8), 5);
+  </script>
+</body>
+</html>

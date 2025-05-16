@@ -1,6 +1,6 @@
 import { Context, Schema } from 'koishi'
 const model = require('./database/model')
-const tmpQuery = require('./command/tmpQuery')
+const tmpQuery = require('./command/tmpQuery/tmpQuery')
 const tmpServer = require('./command/tmpServer')
 const tmpBind = require('./command/tmpBind')
 const tmpTraffic = require('./command/tmpTraffic/tmpTraffic')
@@ -34,6 +34,10 @@ export const Config: Schema<Config> = Schema.intersect([
       Schema.const(1).description('文字'),
       Schema.const(2).description('热力图')
     ]).default(1).description('路况信息展示方式'),
+    tmpQueryType: Schema.union([
+      Schema.const(1).description('文字'),
+      Schema.const(2).description('图片')
+    ]).default(1).description('玩家信息展示方式'),
   }).description('指令配置'),
 ])
 
