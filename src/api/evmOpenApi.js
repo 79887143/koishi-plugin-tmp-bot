@@ -1,4 +1,4 @@
-const BASE_API = 'https://open-api.vtcm.link'
+const BASE_API = 'https://da.vtcm.link'
 
 module.exports = {
   /**
