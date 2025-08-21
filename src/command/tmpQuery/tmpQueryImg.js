@@ -42,7 +42,9 @@ module.exports = async (ctx, cfg, session, tmpId) => {
 
   // 查询玩家信息
   let playerInfo = await evmOpenApi.playerInfo(ctx.http, tmpId)
-  if (playerInfo.error) {
+  if (playerInfo.error && playerInfo.code === 10001) {
+    return '玩家不存在'
+  } else if (playerInfo.error) {
     return '查询玩家信息失败，请重试'
   }
 

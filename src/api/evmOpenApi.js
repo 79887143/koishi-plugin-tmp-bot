@@ -61,6 +61,7 @@ module.exports = {
 
     // 拼接返回数据
     let data = {
+      code: result.code,
       error: result.code !== 200
     }
     if (!data.error) {
