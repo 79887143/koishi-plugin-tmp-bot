@@ -74,6 +74,15 @@ module.exports = async (ctx, cfg, session, tmpId) => {
     }
   }
   message += '\n🚫封禁次数: ' + (playerInfo.data.banCount || 0)
+  if (playerInfo.data.mileage) {
+    let mileage = playerInfo.data.mileage
+    let mileageUnit = '米'
+    if (mileage > 1000) {
+      mileage = (mileage / 1000).toFixed(1)
+      mileageUnit = '公里'
+    }
+    message += '\n🚩历史里程: ' + mileage + mileageUnit
+  }
   if (playerInfo.data.todayMileage) {
     let todayMileage = playerInfo.data.todayMileage
     let mileageUnit = '米'
