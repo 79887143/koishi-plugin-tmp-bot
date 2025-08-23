@@ -73,7 +73,16 @@ module.exports = async (ctx, cfg, session, tmpId) => {
       message += "\n🚫封禁原因: " + (playerInfo.data.banReasonZh || playerInfo.data.banReason)
     }
   }
-  message += '\n🚫封禁次数: ' + playerInfo.data.banCount || 0
+  message += '\n🚫封禁次数: ' + (playerInfo.data.banCount || 0)
+  if (playerInfo.data.todayMileage) {
+    let todayMileage = playerInfo.data.todayMileage
+    let mileageUnit = '米'
+    if (todayMileage > 1000) {
+      todayMileage = (todayMileage / 1000).toFixed(1)
+      mileageUnit = '公里'
+    }
+    message += '\n🚩今日里程: ' + todayMileage + mileageUnit
+  }
   if (playerMapInfo && !playerMapInfo.error) {
     message += '\n📶在线状态: ' + (playerMapInfo.data.online ? `在线🟢 (${playerMapInfo.data.serverDetails.name})` : '离线⚫')
     if (playerMapInfo.data.online) {
