@@ -1,5 +1,6 @@
 import { Context, Schema } from 'koishi'
 const model = require('./database/model')
+const { MileageRankingType } = require('./util/constant')
 const tmpQuery = require('./command/tmpQuery/tmpQuery')
 const tmpServer = require('./command/tmpServer')
 const tmpBind = require('./command/tmpBind')
@@ -7,6 +8,7 @@ const tmpTraffic = require('./command/tmpTraffic/tmpTraffic')
 const tmpPosition = require('./command/tmpPosition')
 const tmpVersion = require('./command/tmpVersion')
 const tmpDlcMap = require('./command/tmpDlcMap')
+const tmpMileageRanking = require('./command/tmpMileageRanking')
 
 export const name = 'tmp-bot'
 export const inject = {
@@ -53,4 +55,6 @@ export function apply(ctx: Context, cfg: Config) {
   ctx.command('tmpposition <tmpId>').action(async ({ session }, tmpId) => await tmpPosition(ctx, cfg, session, tmpId))
   ctx.command('tmpversion').action(async () => await tmpVersion(ctx))
   ctx.command('tmpdlcmap').action(async ({ session }) => await tmpDlcMap(ctx, session))
+  ctx.command('tmpmileageranking').action(async ({ session }) => await tmpMileageRanking(ctx, session, MileageRankingType.total))
+  ctx.command('tmptodaymileageranking').action(async ({ session }) => await tmpMileageRanking(ctx, session, MileageRankingType.today))
 }

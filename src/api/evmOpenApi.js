@@ -90,5 +90,27 @@ module.exports = {
       data.data = result.data
     }
     return data
+  },
+  /**
+   * 玩家里程排行
+   */
+  async mileageRankingList (http, rankingType, tmpId) {
+    let result = null
+    try {
+      result = await http.get(`${BASE_API}/statistics/mileageRankingList?rankingType=${rankingType}&tmpId=${tmpId || ''}&rankingCount=10`)
+    } catch(e) {
+      return {
+        error: true
+      }
+    }
+
+    // 拼接返回数据
+    let data = {
+      error: result.code !== 200
+    }
+    if (!data.error) {
+      data.data = result.data
+    }
+    return data
   }
 }
