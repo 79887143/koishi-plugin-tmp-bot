@@ -1,8 +1,13 @@
 const dayjs = require('dayjs')
+const dayjsRelativeTime = require('dayjs/plugin/relativeTime')
+const dayjsLocaleZhCn = require('dayjs/locale/zh-cn')
 const guildBind = require('../../database/guildBind')
 const truckyAppApi = require('../../api/truckyAppApi')
 const evmOpenApi = require('../../api/evmOpenApi')
 const baiduTranslate = require('../../util/baiduTranslate')
+
+dayjs.extend(dayjsRelativeTime)
+dayjs.locale(dayjsLocaleZhCn)
 
 /**
  * 用户组
@@ -99,6 +104,8 @@ module.exports = async (ctx, cfg, session, tmpId) => {
       message += await baiduTranslate(ctx, cfg, playerMapInfo.data.location.poi.country)
       message += ' - '
       message += await baiduTranslate(ctx, cfg, playerMapInfo.data.location.poi.realName)
+    } else if (playerInfo.data.lastOnlineTime) {
+      message += '\n📶上次在线: ' + dayjs(playerInfo.data.lastOnlineTime).fromNow(false)
     }
   }
   if (playerInfo.data.isSponsor) {
