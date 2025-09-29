@@ -1,5 +1,4 @@
-const BASE_API_V3 = 'https://api.truckyapp.com/v3'
-const BASE_API_V2 = 'https://api.truckyapp.com/v2'
+const BASE_API = 'https://api.codetabs.com/v1/proxy/?quest=https://api.truckyapp.com'
 
 module.exports = {
   /**
@@ -8,7 +7,7 @@ module.exports = {
   async online (http, tmpId) {
     let result = null
     try {
-      result = await http.get(`${BASE_API_V3}/map/online?playerID=${tmpId}`)
+      result = await http.get(`${BASE_API}/v3/map/online?playerID=${tmpId}`)
     } catch {
       return {
         error: true
@@ -30,7 +29,7 @@ module.exports = {
   async trafficTop (http, serverName) {
     let result = null
     try {
-      result = await http.get(`${BASE_API_V2}/traffic/top?game=ets2&server=${serverName}`)
+      result = await http.get(`${BASE_API}/v2/traffic/top?game=ets2&server=${serverName}`)
     } catch {
       return {
         error: true
