@@ -112,5 +112,27 @@ module.exports = {
       data.data = result.data
     }
     return data
+  },
+  /**
+   * 查询玩家历史数据
+   */
+  async mapPlayerHistory(http, tmpId, serverId, startTime, endTime) {
+    let result = null
+    try {
+      result = await http.get(`${BASE_API}/map/playerHistory?tmpId=${tmpId}&serverId=${serverId}&startTime=${startTime}&endTime=${endTime}`)
+    } catch {
+      return {
+        error: true
+      }
+    }
+
+    // 拼接返回数据
+    let data = {
+      error: result.code !== 200
+    }
+    if (!data.error) {
+      data.data = result.data
+    }
+    return data
   }
 }

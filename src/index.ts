@@ -9,6 +9,7 @@ const tmpPosition = require('./command/tmpPosition')
 const tmpVersion = require('./command/tmpVersion')
 const tmpDlcMap = require('./command/tmpDlcMap')
 const tmpMileageRanking = require('./command/tmpMileageRanking')
+const tmpFootprint = require('./command/tmpFootprint')
 
 export const name = 'tmp-bot'
 export const inject = {
@@ -57,4 +58,5 @@ export function apply(ctx: Context, cfg: Config) {
   ctx.command('tmpdlcmap').action(async ({ session }) => await tmpDlcMap(ctx, session))
   ctx.command('tmpmileageranking').action(async ({ session }) => await tmpMileageRanking(ctx, session, MileageRankingType.total))
   ctx.command('tmptodaymileageranking').action(async ({ session }) => await tmpMileageRanking(ctx, session, MileageRankingType.today))
+  ctx.command('tmpfootprint').action(async ({ session }, serverName) => await tmpFootprint(ctx, session, serverName))
 }
