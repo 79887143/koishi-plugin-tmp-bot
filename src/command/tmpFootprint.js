@@ -1,4 +1,5 @@
 const { segment } = require('koishi')
+const dayjs = require('dayjs')
 const { resolve } = require('path')
 const common = require('../util/common')
 const { ServerAliasToId, PromodsIds } = require('../util/constant')
@@ -32,7 +33,9 @@ module.exports = async (ctx, session, serverName) => {
   }
 
   // 查询当日历史位置数据
-  let mapPlayerHistory = await evmOpenApi.mapPlayerHistory(ctx.http, tmpId, serverId, '2026-01-22 00:00:00', '2026-01-22 23:00:00')
+  const startTime = dayjs().startOf('day').format('YYYY-MM-DD HH:mm:ss');
+  const endTime = dayjs().endOf('day').format('YYYY-MM-DD HH:mm:ss');
+  let mapPlayerHistory = await evmOpenApi.mapPlayerHistory(ctx.http, tmpId, serverId, startTime, endTime)
   if (mapPlayerHistory.data.length === 0) {
     return `当日暂无数据`
   }
@@ -45,7 +48,6 @@ module.exports = async (ctx, session, serverName) => {
     todayMileage: playerInfo.data.todayMileage,
     points: mapPlayerHistory.data
   }
-  console.info(data.mapType)
 
   let page
   try {

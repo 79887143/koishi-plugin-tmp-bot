@@ -127,7 +127,7 @@
               document.getElementById('avatar').src = data.smallAvatarUrl;
           }
 
-          const points = data.points || [];
+          const points = (data.points || []).filter(p => !(p.axisX === 0 && p.axisY === 0 && p.heading === 0));
           // 使用传入的今日里程数据（米转千米）
           const mileage = data.todayMileage || 0;
           const km = (mileage / 1000).toFixed(1);
@@ -156,7 +156,7 @@
                  timeDiff = (parseTime(curr.updateTime) - parseTime(prev.updateTime)) / 1000;
               } catch (e) { }
 
-              const isTimeJump = timeDiff > 60;
+              const isTimeJump = timeDiff > 90;
               const isServerJump = prev.serverId !== curr.serverId;
 
               if (isDistJump || isTimeJump || isServerJump) {
