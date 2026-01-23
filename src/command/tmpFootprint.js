@@ -20,7 +20,7 @@ module.exports = async (ctx, session, serverName) => {
   // 尝试从数据库查询绑定信息
   let guildBindData = await guildBind.get(ctx.database, session.platform, session.userId)
   if (!guildBindData) {
-    return `请输入正确的玩家编号`
+    return `请先绑定玩家编号`
   }
   let tmpId = guildBindData.tmp_id
 
