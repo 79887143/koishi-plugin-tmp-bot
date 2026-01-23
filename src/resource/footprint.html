@@ -148,8 +148,9 @@
               const prev = points[i - 1];
               const curr = points[i];
 
-              const dist = calculateDistance(prev, curr);
-              const isDistJump = dist > 2632; // > 50km
+              let dist = calculateDistance(prev, curr);
+              dist = dist * 19;
+              const isDistJump = dist > 50000; // > 50km
 
               let timeDiff = 0;
               try {

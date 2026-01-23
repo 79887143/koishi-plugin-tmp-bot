@@ -5,7 +5,6 @@ const common = require('../util/common')
 const { ServerAliasToId, PromodsIds } = require('../util/constant')
 const evmOpenApi = require('../api/evmOpenApi')
 const guildBind = require('../database/guildBind')
-const dayjs = require('dayjs')
 
 module.exports = async (ctx, session, serverName) => {
   if (!ctx.puppeteer) {
