@@ -13,14 +13,14 @@ const common = require('../util/common')
 module.exports = async (ctx, cfg, session, tmpId) => {
   if (ctx.puppeteer) {
     if (tmpId && isNaN(tmpId)) {
-      return `请输入正确的玩家编号`
+      return `请输入正确的玩家编号，或绑定玩家编号`
     }
 
     // 如果没有传入tmpId，尝试从数据库查询绑定信息
     if (!tmpId) {
       let guildBindData = await guildBind.get(ctx.database, session.platform, session.userId)
       if (!guildBindData) {
-        return `请输入正确的玩家编号`
+        return `请输入正确的玩家编号，或绑定玩家编号`
       }
       tmpId = guildBindData.tmp_id
     }

@@ -25,5 +25,12 @@ module.exports = {
   /**
    * P服务器ID集合
    */
-  PromodsIds: [50, 51]
+  PromodsIds: [50, 51],
+  /**
+   * 服务器类型
+   */
+  ServerType: {
+    ets: 1,
+    promods: 2
+  }
 }

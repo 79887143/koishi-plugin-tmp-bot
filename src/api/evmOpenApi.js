@@ -119,7 +119,7 @@ module.exports = {
   async mapPlayerHistory(http, tmpId, serverId, startTime, endTime) {
     let result = null
     try {
-      result = await http.get(`${BASE_API}/map/playerHistory?tmpId=${tmpId}&serverId=${serverId}&startTime=${startTime}&endTime=${endTime}`)
+      result = await http.get(`${BASE_API}/map/playerHistory?tmpId=${tmpId || ''}&serverId=${serverId || ''}&startTime=${startTime || ''}&endTime=${endTime || ''}`)
     } catch {
       return {
         error: true
