@@ -1,6 +1,6 @@
 {
   "name": "koishi-plugin-tmp-bot",
-  "description": "欧洲卡车模拟2 TMP查询插件，不会部署的可以直接使用此机器人->QQ:3523283907",
+  "description": "欧洲卡车模拟2 TMP查询插件，不会部署的可以直接使用此机器人->QQ:2364390698",
   "version": "1.20.1",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
