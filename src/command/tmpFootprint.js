@@ -60,7 +60,7 @@ module.exports = async (ctx, session, serverType, tmpId) => {
     name: playerInfo.data.name,
     smallAvatarUrl: playerInfo.data.smallAvatarUrl,
     todayMileage: playerInfo.data.todayMileage,
-    points: mapPlayerHistory.data
+    points: mapPlayerHistoryArr
   }
 
   let page
