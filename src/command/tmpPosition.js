@@ -34,7 +34,7 @@ module.exports = async (ctx, cfg, session, tmpId) => {
     // 查询线上信息
     let playerMapInfo = await truckyAppApi.online(ctx.http, tmpId)
     if (playerMapInfo.error) {
-      return '查询玩家信息失败，请重试'
+      return '查询玩家位置信息失败，请重试'
     }
     if (!playerMapInfo.data.online) {
       return '玩家离线'
