@@ -134,5 +134,27 @@ module.exports = {
       data.data = result.data
     }
     return data
-  }
+  },
+  /**
+   * 获取 TMP 版本信息
+   */
+  async tmpVersion(http) {
+    let result = null
+    try {
+      result = await http.get(`${BASE_API}/other/tmpVersion`)
+    } catch {
+      return {
+        error: true
+      }
+    }
+
+    // 拼接返回数据
+    let data = {
+      error: result.code !== 200
+    }
+    if (!data.error) {
+      data.data = result.data
+    }
+    return data
+  },
 }
