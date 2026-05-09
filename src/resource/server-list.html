@@ -197,13 +197,13 @@ function normalizeHistory(playerHistory) {
 
   if (!playerHistory || playerHistory.length === 0) return [];
 
-  // 手动解析时间字符串，避免不同环境下 Date 解析行为不一致
+  // API 返回的是北京时间(UTC+8)，用 Date.UTC 生成时间戳再减去8小时偏移
   function parseTime(str) {
     const [datePart, timePart] = str.trim().replace('T', ' ').split(' ');
     const [y, m, d] = datePart.split('-').map(Number);
     const parts = timePart.split(':').map(Number);
     const h = parts[0] || 0, min = parts[1] || 0;
-    return new Date(y, m - 1, d, h, min, 0).getTime();
+    return Date.UTC(y, m - 1, d, h, min, 0) - 8 * 3600000;
   }
 
   const now = Date.now();
