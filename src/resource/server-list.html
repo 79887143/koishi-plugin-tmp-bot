@@ -82,7 +82,7 @@
     }
     .server-name {
       color: #e6edf3;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
       white-space: nowrap;
       overflow: hidden;
@@ -157,7 +157,7 @@ function buildChartSVG(data, width, height, maxPlayer) {
   const chartH = height - padTop - padBottom;
 
   const dataMax = Math.max(...data, 1);
-  const max = Math.min(maxPlayer, maxPlayer * 0.2 + dataMax);
+  const max = Math.min(maxPlayer, maxPlayer * 0.12 + dataMax);
   const step = chartW / (data.length - 1);
 
   const points = data.map((v, i) => {
