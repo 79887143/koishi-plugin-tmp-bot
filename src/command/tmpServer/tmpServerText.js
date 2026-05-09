@@ -1,5 +1,4 @@
-const truckersMpApi = require('../api/truckersMpApi')
-const evmOpenApi = require('../api/evmOpenApi')
+const evmOpenApi = require('../../api/evmOpenApi')
 
 module.exports = async (ctx) => {
   // 查询服务器信息

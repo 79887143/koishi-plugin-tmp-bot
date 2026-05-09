@@ -2,7 +2,7 @@ import { Context, Schema } from 'koishi'
 const model = require('./database/model')
 const { MileageRankingType } = require('./util/constant')
 const tmpQuery = require('./command/tmpQuery')
-const tmpServer = require('./command/tmpServer')
+const tmpServer = require('./command/tmpServer/tmpServer')
 const tmpBind = require('./command/tmpBind')
 const tmpTraffic = require('./command/tmpTraffic/tmpTraffic')
 const tmpPosition = require('./command/tmpPosition')
@@ -37,7 +37,11 @@ export const Config: Schema<Config> = Schema.intersect([
     tmpTrafficType: Schema.union([
       Schema.const(1).description('文字'),
       Schema.const(2).description('热力图')
-    ]).default(1).description('路况信息展示方式')
+    ]).default(1).description('路况信息展示方式'),
+    tmpServerType: Schema.union([
+      Schema.const(1).description('文字'),
+      Schema.const(2).description('图片')
+    ]).default(1).description('服务器信息展示方式')
   }).description('指令配置'),
 ])
 
@@ -47,7 +51,7 @@ export function apply(ctx: Context, cfg: Config) {
 
   // 注册指令
   ctx.command('tmpquery <tmpId>').action(async ({ session }, tmpId) => await tmpQuery(ctx, cfg, session, tmpId))
-  ctx.command('tmpserverets').action(async () => await tmpServer(ctx))
+  ctx.command('tmpserverets').action(async () => await tmpServer(ctx, cfg))
   ctx.command('tmpbind <tmpId>').action(async ({ session }, tmpId) => await tmpBind(ctx, cfg, session, tmpId))
   ctx.command('tmptraffic <serverName>').action(async ({ session }, serverName) => await tmpTraffic(ctx, cfg, serverName))
   ctx.command('tmpposition <tmpId>').action(async ({ session }, tmpId) => await tmpPosition(ctx, cfg, session, tmpId))
