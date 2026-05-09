@@ -197,12 +197,22 @@ function normalizeHistory(playerHistory) {
 
   if (!playerHistory || playerHistory.length === 0) return [];
 
+  // 手动解析时间字符串，避免不同环境下 Date 解析行为不一致
+  function parseTime(str) {
+    const [datePart, timePart] = str.trim().replace('T', ' ').split(' ');
+    const [y, m, d] = datePart.split('-').map(Number);
+    const parts = timePart.split(':').map(Number);
+    const h = parts[0] || 0, min = parts[1] || 0;
+    return new Date(y, m - 1, d, h, min, 0).getTime();
+  }
+
   const now = Date.now();
   const currentSlot = Math.floor(now / SLOT_MS) * SLOT_MS;
 
   const dataMap = {};
   for (const item of playerHistory) {
-    const ts = new Date(item.updateTime.replace(' ', 'T')).getTime();
+    const ts = parseTime(item.updateTime);
+    if (isNaN(ts)) continue;
     const slot = Math.floor(ts / SLOT_MS) * SLOT_MS;
     dataMap[slot] = item.playerCount;
   }
