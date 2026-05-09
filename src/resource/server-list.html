@@ -238,11 +238,14 @@ function createServerCard(server) {
   if (server.collisionsEnable === 1) {
     featuresHTML += '<span class="feature">💥 碰撞</span>';
   }
-  if (server.afkEnable === 1) {
+  if (server.afkEnable === 0) {
     featuresHTML += '<span class="feature">💤 挂机</span>';
   }
   if (server.policeCarEnable === 1) {
     featuresHTML += '<span class="feature">🚓 警车</span>';
+  }
+  if (server.speedLimiterEnable === 1) {
+    featuresHTML += '<span class="feature">🐢 限速</span>';
   }
 
   // 队列
