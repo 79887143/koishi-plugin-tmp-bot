@@ -1,4 +1,5 @@
-const BASE_API = 'https://api.codetabs.com/v1/proxy/?quest=https://api.truckyapp.com'
+const BASE_API = 'https://api.truckyapp.com'
+const HEADERS = { headers: { 'User-Agent': 'koishi-plugin-tmp-bot' } }
 
 module.exports = {
   /**
@@ -7,7 +8,7 @@ module.exports = {
   async online (http, tmpId) {
     let result = null
     try {
-      result = await http.get(`${BASE_API}/v3/map/online?playerID=${tmpId}`)
+      result = await http.get(`${BASE_API}/v3/map/online?playerID=${tmpId}`, HEADERS)
     } catch {
       return {
         error: true
@@ -29,7 +30,7 @@ module.exports = {
   async trafficTop (http, serverName) {
     let result = null
     try {
-      result = await http.get(`${BASE_API}/v2/traffic/top?game=ets2&server=${serverName}`)
+      result = await http.get(`${BASE_API}/v2/traffic/top?game=ets2&server=${serverName}`, HEADERS)
     } catch {
       return {
         error: true

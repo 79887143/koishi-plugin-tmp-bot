@@ -17,7 +17,7 @@ module.exports = async (ctx) => {
   let page
   try {
     page = await ctx.puppeteer.page()
-    await page.setViewport({ width: 380, height: 1000, deviceScaleFactor: 2 })
+    await page.setViewport({ width: 380, height: 1000, deviceScaleFactor: 1.5 })
     await page.goto(`file:///${resolve(__dirname, '../../resource/server-list.html')}`)
     await page.evaluate(`setData(${JSON.stringify(serverData)})`)
     await common.sleep(100)
